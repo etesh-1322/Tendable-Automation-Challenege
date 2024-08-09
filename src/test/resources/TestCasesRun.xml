@@ -2,8 +2,9 @@
 <suite name="Tendable Automation Assignment">
     <test name="Login Tests">
         <classes>
-            <class name=""/>
-            <class name=""/>
+            <class name="TestCases.HomePageTest"/>
+            <class name ="TestCases.MarketingFormTest"/>
+
         </classes>
     </test>
 </suite>

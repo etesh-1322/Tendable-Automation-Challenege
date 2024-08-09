@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class HomePageFunctions extends HomePageLocators {
-    WebDriver driver;
+   private WebDriver driver;
 
     public HomePageFunctions(WebDriver driver) {
         this.driver = driver;
@@ -105,6 +105,7 @@ public class HomePageFunctions extends HomePageLocators {
         if(el.isDisplayed())
         {
             el.click();
+            flag=true;
         }
         else
             flag=false;
