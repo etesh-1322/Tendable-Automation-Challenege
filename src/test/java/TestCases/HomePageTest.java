@@ -1,58 +1,95 @@
-package TestCases;
+package pageFunctions;
 
-import Base.BaseClass;
-import pageFunctions.HomePageFunctions;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import locators.HomePageLocators;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
-public class HomePageTest extends BaseClass {
+public class HomePageFunctions extends HomePageLocators {
+   private final WebDriver driver;
 
-    @Test (description = "This test case verifies all the header like our story, why tendable, home page and our solution are present or not")
-    public void VerifyTopLevelMenus() {
+    public HomePageFunctions(WebDriver driver) {
+        this.driver = driver;
+    }
 
-        System.out.println("Driver: " + driver);
-        HomePageFunctions homePage = new HomePageFunctions(driver);
-        Assert.assertTrue(homePage.verifyHomePageButton());
-        Assert.assertTrue(homePage.verifyOurStoryButton());
-        Assert.assertTrue(homePage.verifyOurSolutionButton());
-        Assert.assertTrue(homePage.verifyWhyTendableButton());
+
+    public boolean verifyHomePageButton() {
+        boolean flag = false;
+        WebElement el = driver.findElement(HomePageLocators.HOME_PAGE);
+        flag = el.isDisplayed();
+
+        return flag;
 
     }
 
-    @Test(description = "This test verifies reuqest demo button visibility and also verifies when a user clicks on Our Story, Our Solution, WhyTendable the request demo button is present")
-    public void VerifyRequestDemoButtonOnHomePage()
+    public boolean verifyOurStoryButton() {
+        boolean flag = false;
+        WebElement el = driver.findElement(HomePageLocators.OUR_STORY);
+        flag = el.isDisplayed();
+
+        return flag;
+    }
+
+    public boolean clickOurStoryButton()
     {
-        System.out.println("Driver: " + driver);
-        HomePageFunctions homePage = new HomePageFunctions(driver);
-        Assert.assertTrue(homePage.verifyRequestDemoButton());
+        boolean flag = false;
+        WebElement el = driver.findElement(HomePageLocators.OUR_STORY);
+        if(el.isDisplayed())
+        {
+            el.click();
+            flag=true;
+        }
+        return flag;
 
     }
 
-    @Test
-    public void VerifyRequestDemoButtonOnOurStoryPage()
-    {
+    public boolean verifyOurSolutionButton() {
+        boolean flag = false;
+        WebElement el = driver.findElement(HomePageLocators.OUR_SOLUTION);
+        flag = el.isDisplayed();
 
-        System.out.println("Driver: " + driver);
-        HomePageFunctions homePage = new HomePageFunctions(driver);
-        Assert.assertTrue(homePage.clickOurStoryButton());
-        Assert.assertTrue(homePage.verifyRequestDemoButton());
+        return flag;
+
+    }
+    public boolean clickOurSolutionButton() {
+        boolean flag = false;
+        WebElement el = driver.findElement(HomePageLocators.OUR_SOLUTION);
+        if(el.isDisplayed())
+        {
+            el.click();
+            flag = true;
+        }
+
+        return flag;
     }
 
-    @Test
-    public void VerifyRequestDemoButtonOnOurSolutionPage()
+    public boolean verifyWhyTendableButton() {
+        boolean flag = false;
+        WebElement el = driver.findElement(HomePageLocators.WHY_TENDABLE);
+        flag = el.isDisplayed();
+
+        return flag;
+
+    }
+    public boolean clickWhyTendableButton()
     {
-        System.out.println("Driver: " + driver);
-        HomePageFunctions homePage = new HomePageFunctions(driver);
-        Assert.assertTrue(homePage.clickOurStoryButton());
-        Assert.assertTrue(homePage.verifyRequestDemoButton());
+        boolean flag = false;
+        WebElement el = driver.findElement(HomePageLocators.WHY_TENDABLE);
+        if(el.isDisplayed())
+        {
+            el.click();
+            flag=true;
+        }
+
+        return flag;
     }
 
-    @Test public void VerifyRequestDemoButtonOnWhyTendablePage()
-    {
-        System.out.println("Driver: " + driver);
-        HomePageFunctions homePage = new HomePageFunctions(driver);
-        Assert.assertTrue(homePage.clickWhyTendableButton());
-        Assert.assertTrue(homePage.verifyRequestDemoButton());
+    public boolean verifyRequestDemoButton() {
+        boolean flag = false;
+        WebElement el = driver.findElement(HomePageLocators.REQUEST_DEMO);
+        flag = el.isDisplayed();
+
+        return flag;
+
     }
 
 
