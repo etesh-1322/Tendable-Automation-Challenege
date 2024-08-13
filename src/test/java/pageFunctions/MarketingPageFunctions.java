@@ -1,23 +1,27 @@
 package pageFunctions;
 
 import com.beust.ah.A;
-import locators.MarketingFormLocators;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import locators.MarketingFormLocators;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
 
 public class MarketingPageFunctions extends MarketingFormLocators {
 
-    private WebDriver driver;
+    private final WebDriver driver;
+    private WebDriverWait wait;
+    JavascriptExecutor js;
 
     public MarketingPageFunctions(WebDriver driver) {
         this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
     }
 
     public boolean clickContactUSButton()
@@ -30,7 +34,6 @@ public class MarketingPageFunctions extends MarketingFormLocators {
             el.click();
             flag=true;
         }
-        else flag=false;
 
         return flag;
     }
@@ -42,76 +45,39 @@ public class MarketingPageFunctions extends MarketingFormLocators {
         if (el.isDisplayed()) {
             el.click();
             flag = true;
-        } else flag = false;
+        }
 
         return flag;
     }
 
-    public boolean EnterfirstName() throws InterruptedException {
+    public  void fillMarketingForm(String firstNames, String orgName, String Number, String email) throws InterruptedException {
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        boolean flag = false;
+        wait.until(ExpectedConditions.elementToBeClickable(MarketingFormLocators.First_Name));
+        Thread.sleep(2000);
 
-       
+        WebElement firstName = driver.findElement(MarketingFormLocators.First_Name);
+        firstName.click();
+        firstName.sendKeys(firstNames);
+        System.out.println(firstName.getText());
 
-        WebElement ele = driver.findElement(By.xpath("(//input[@placeholder='Full Name' and @id = 'form-input-fullName'])[1]"));
 
-        Thread.sleep(4000);
-        if (ele.isDisplayed()) {
-            ele.click();
-            ele.sendKeys("Test User");
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebElement number  = driver.findElement(MarketingFormLocators.Phone_Num);
+        number.click();
+        number.sendKeys(Number);
+        System.out.println(number.getText());
 
-            flag=true;
+        WebElement OrgName = driver.findElement(MarketingFormLocators.Org_name);
+        OrgName.click();
+        OrgName.sendKeys(orgName);
+        System.out.println(OrgName.getText());
 
-        } else flag = false;
+        WebElement Email = driver.findElement(MarketingFormLocators.Email);
+        Email.click();
+        Email.sendKeys(email);
+        System.out.println(Email.getText());
 
-        return flag;
     }
 
-    public boolean EnterOrganizationName()
-    {
-        boolean flag = false;
-        WebElement ele = driver.findElement(MarketingFormLocators.Org_name);
-        if (ele.isDisplayed()) {
-            ele.click();
-            ele.sendKeys("tendable");
-
-            flag = true;
-
-        } else flag = false;
-
-        return flag;
-    }
-    public boolean EnterPhoneNumber()
-    {
-        boolean flag = false;
-        WebElement ele = driver.findElement(MarketingFormLocators.Phone_Num);
-        if (ele.isDisplayed()) {
-            ele.click();
-            ele.sendKeys("8950321832");
-
-            flag = true;
-
-        } else flag = false;
-
-        return flag;
-    }
-
-    public boolean EnterEmail()
-    {
-        boolean flag = false;
-       WebElement ele = driver.findElement(MarketingFormLocators.Email);
-        if (ele.isDisplayed()) {
-            ele.click();
-            ele.sendKeys("test@gmail.com");
-
-            flag = true;
-
-        } else flag = false;
-
-        return flag;
-    }
 
     public boolean selectRole()
     {
@@ -123,69 +89,57 @@ public class MarketingPageFunctions extends MarketingFormLocators {
         {
             flag=true;
         }
-
-        else flag=false;
         return flag;
     }
 
-    public boolean selectConsentRadioButton()
-    {
+    public boolean selectConsentRadioButton()  {
+
         boolean flag =false;
         WebElement ele = driver.findElement(MarketingFormLocators.consentButton);
         ele.click();
         if(ele.isSelected())
         {
             flag = true;
-
         }
-
-        else flag=false;
-
         return flag;
 
     }
 
-    public boolean clickSubmitButton()
-    {
+    public boolean clickSubmitButton() {
+
         boolean flag =false;
         WebElement ele = driver.findElement(MarketingFormLocators.submitButton);
 
         if(ele.isDisplayed()) {
-            ele.click();
+           ele.click();
             flag=true;
         }
-        else flag=false;
 
         return flag;
-
     }
 
-    public boolean errorMessage() throws InterruptedException {
-        Thread.sleep(5000);
+    public boolean submitFormAndVerify(String firstNames, String orgName, String Number, String email) throws InterruptedException {
         boolean flag=false;
-        WebElement el = driver.findElement(MarketingFormLocators.ErrorMessage);
-        if(el.isDisplayed())
+        fillMarketingForm(firstNames, orgName, Number, email);
+        if( selectConsentRadioButton()  && clickSubmitButton() && errorMessage())
         {
             flag=true;
-
         }
-        else flag=false;
-
         return flag;
-
-
     }
 
 
+    public boolean errorMessage()  {
+        boolean flag=false;
+        wait.until(ExpectedConditions.visibilityOfElementLocated(MarketingFormLocators.ErrorMessage));
+         WebElement error = driver.findElement(MarketingFormLocators.ErrorMessage);
+        if(error.isDisplayed())
+        {
+            flag=true;
+        }
 
+        return flag;
 
-
-
-
-
-
-
-
-
+    }
 
 }
