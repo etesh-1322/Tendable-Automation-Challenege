@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class HomePageFunctions extends HomePageLocators {
-   private WebDriver driver;
+   private final WebDriver driver;
 
     public HomePageFunctions(WebDriver driver) {
         this.driver = driver;
@@ -15,12 +15,7 @@ public class HomePageFunctions extends HomePageLocators {
     public boolean verifyHomePageButton() {
         boolean flag = false;
         WebElement el = driver.findElement(HomePageLocators.HOME_PAGE);
-        if(el.isDisplayed())
-        {
-            flag = true;
-        }
-        else
-            flag=false;
+        flag = el.isDisplayed();
 
         return flag;
 
@@ -29,15 +24,9 @@ public class HomePageFunctions extends HomePageLocators {
     public boolean verifyOurStoryButton() {
         boolean flag = false;
         WebElement el = driver.findElement(HomePageLocators.OUR_STORY);
-        if(el.isDisplayed())
-        {
-            flag = true;
-        }
-        else
-            flag=false;
+        flag = el.isDisplayed();
 
         return flag;
-
     }
 
     public boolean clickOurStoryButton()
@@ -49,23 +38,14 @@ public class HomePageFunctions extends HomePageLocators {
             el.click();
             flag=true;
         }
-        else
-            flag=false;
-
         return flag;
 
     }
 
-
     public boolean verifyOurSolutionButton() {
         boolean flag = false;
         WebElement el = driver.findElement(HomePageLocators.OUR_SOLUTION);
-        if(el.isDisplayed())
-        {
-            flag = true;
-        }
-        else
-            flag=false;
+        flag = el.isDisplayed();
 
         return flag;
 
@@ -78,22 +58,14 @@ public class HomePageFunctions extends HomePageLocators {
             el.click();
             flag = true;
         }
-        else
-            flag=false;
 
         return flag;
-
     }
 
     public boolean verifyWhyTendableButton() {
         boolean flag = false;
         WebElement el = driver.findElement(HomePageLocators.WHY_TENDABLE);
-        if(el.isDisplayed())
-        {
-            flag = true;
-        }
-        else
-            flag=false;
+        flag = el.isDisplayed();
 
         return flag;
 
@@ -107,27 +79,18 @@ public class HomePageFunctions extends HomePageLocators {
             el.click();
             flag=true;
         }
-        else
-            flag=false;
 
         return flag;
-
     }
 
     public boolean verifyRequestDemoButton() {
         boolean flag = false;
         WebElement el = driver.findElement(HomePageLocators.REQUEST_DEMO);
-        if(el.isDisplayed())
-        {
-            flag = true;
-        }
-        else
-            flag=false;
+        flag = el.isDisplayed();
 
         return flag;
 
     }
-
 
 
 }
